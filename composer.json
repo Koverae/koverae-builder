@@ -27,10 +27,10 @@
         "livewire/livewire": "^3.0",
         "nwidart/laravel-modules": "^10.0",
         "larswiegers/laravel-maps": "^0.18.0",
-        "illuminate/support": "^8.0"
+        "illuminate/support": "^11.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.0",
+        "orchestra/testbench": "^9.0",
         "phpunit/phpunit": "^9.0"
     },
     "autoload": {
