@@ -1,8 +1,8 @@
 # Koverae UI Builder
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/koverae/koverae-ui-builder.svg?style=flat-square)](https://packagist.org/packages/koverae/koverae-ui-builder)
-[![Total Downloads](https://img.shields.io/packagist/dt/koverae/koverae-ui-builder.svg?style=flat-square)](https://packagist.org/packages/koverae/koverae-ui-builder)
-![GitHub Actions](https://github.com/koverae/koverae-ui-builder/actions/workflows/main.yml/badge.svg)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/koverae/koverae-builder.svg?style=flat-square)](https://packagist.org/packages/koverae/koverae-builder)
+[![Total Downloads](https://img.shields.io/packagist/dt/koverae/koverae-builder.svg?style=flat-square)](https://packagist.org/packages/koverae/koverae-builder)
+![GitHub Actions](https://github.com/koverae/koverae-builder/actions/workflows/main.yml/badge.svg)
 
 Koverae UI Builder is a flexible and intuitive interface builder package designed specifically for Laravel. Built with the power of Koverae’s ecosystem in mind, it allows developers to easily create, customize, and manage UI components like navigation bars, forms, buttons, and more—without the hassle of manual coding.
 
@@ -11,7 +11,7 @@ Koverae UI Builder is a flexible and intuitive interface builder package designe
 To get started, require the package via Composer:
 
 ```bash
-composer require koverae/koverae-ui-builder
+composer require koverae/koverae-builder
 ```
 
 The package will automatically register a service provider and alias.
@@ -19,13 +19,13 @@ The package will automatically register a service provider and alias.
 Optionally, publish the package's configuration file by running:
 
 ```bash
-composer require koverae/koverae-ui-builder --provider"Koverae\KoveraeUiBuilder\KoveraeUiBuilderServiceProvider"
+composer require koverae/koverae-builder --provider"Koverae\KoveraeUiBuilder\KoveraeUiBuilderServiceProvider"
 ```
 
 
 Publish the package's configuration file:
 ```bash
-php artisan vendor:publish --tag=koverae-ui-builder-config
+php artisan vendor:publish --tag=koverae-builder-config
 ```
 ## Macking Components:
 ### Command Signature
@@ -112,7 +112,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security
 
-Please review [our security policy](https://github.com/Koverae/koverae-ui-builder/security) on how to report security vulnerabilities.
+Please review [our security policy](https://github.com/Koverae/koverae-builder/security) on how to report security vulnerabilities.
 
 ## Credits
 
