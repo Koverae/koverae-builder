@@ -3,7 +3,13 @@
     "description": "Koverae Builder is a flexible and intuitive interface builder package designed specifically for Laravel. Built with the power of Koverae’s ecosystem in mind, it allows developers to easily create, customize, and manage UI components like navigation bars, forms, buttons, and more—without the hassle of manual coding.",
     "keywords": [
         "koverae",
-        "koverae-builder"
+        "koverae-builder",
+        "livewire",
+        "laravel",
+        "laravel-modules",
+        "ui-builder",
+        "form-builder",
+        "form"
     ],
     "homepage": "https://github.com/koverae/koverae-builder",
     "license": "MIT",
@@ -11,12 +17,16 @@
     "authors": [
         {
             "name": "Arden BOUET",
-            "email": "laudbouetoumoussa@gmail.com",
+            "email": "laudbouetoumoussa@koverae.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^7.4|^8.0",
+        "laravel/framework": "^10.0",
+        "livewire/livewire": "^3.0",
+        "nwidart/laravel-modules": "^10.0",
+        "larswiegers/laravel-maps": "^0.18.0",
         "illuminate/support": "^8.0"
     },
     "require-dev": {
