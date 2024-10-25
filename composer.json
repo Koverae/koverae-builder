@@ -22,7 +22,7 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^7.4|^8.2",
         "laravel/framework": "^10.0",
         "livewire/livewire": "^3.0",
         "nwidart/laravel-modules": "^10.0",
