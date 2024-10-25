@@ -1,10 +1,10 @@
-# Koverae UI Builder
+# Koverae Builder
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/koverae/koverae-builder.svg?style=flat-square)](https://packagist.org/packages/koverae/koverae-builder)
 [![Total Downloads](https://img.shields.io/packagist/dt/koverae/koverae-builder.svg?style=flat-square)](https://packagist.org/packages/koverae/koverae-builder)
 ![GitHub Actions](https://github.com/koverae/koverae-builder/actions/workflows/main.yml/badge.svg)
 
-Koverae UI Builder is a flexible and intuitive interface builder package designed specifically for Laravel. Built with the power of Koverae’s ecosystem in mind, it allows developers to easily create, customize, and manage UI components like navigation bars, forms, buttons, and more—without the hassle of manual coding.
+Koverae Builder is a flexible and intuitive interface builder package designed specifically for Laravel. Built with the power of Koverae’s ecosystem in mind, it allows developers to easily create, customize, and manage UI components like navigation bars, forms, buttons, and more—without the hassle of manual coding.
 
 ## Installation
 
