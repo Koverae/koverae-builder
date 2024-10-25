@@ -19,7 +19,7 @@ The package will automatically register a service provider and alias.
 Optionally, publish the package's configuration file by running:
 
 ```bash
-composer require koverae/koverae-builder --provider"Koverae\KoveraeUiBuilder\KoveraeUiBuilderServiceProvider"
+composer require koverae/koverae-builder --provider"Koverae\KoveraeBuilder\KoveraeBuilderServiceProvider"
 ```
 
 

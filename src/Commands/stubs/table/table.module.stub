@@ -3,9 +3,9 @@
 namespace [namespace];
 
 
-use Koverae\KoveraeUiBuilder\Table\Table;
-use Koverae\KoveraeUiBuilder\Table\Column;
-use Koverae\KoveraeUiBuilder\Table\Card;
+use Koverae\KoveraeBuilder\Table\Table;
+use Koverae\KoveraeBuilder\Table\Column;
+use Koverae\KoveraeBuilder\Table\Card;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\User; // Default model, feel free to customize according to your needs 🤙🏿
 

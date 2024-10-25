@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Table;
 
-use Koverae\KoveraeUiBuilder\Cart\SimpleCart;
-use Koverae\KoveraeUiBuilder\Cart\Column;
+use Koverae\KoveraeBuilder\Cart\SimpleCart;
+use Koverae\KoveraeBuilder\Cart\Column;
 
 class {{componentClass}} extends SimpleCart
 {

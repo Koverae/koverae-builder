@@ -2,12 +2,12 @@
 
 namespace App\Livewire\Form;
 
-use Koverae\KoveraeUiBuilder\Form\SimpleForm;
-use Koverae\KoveraeUiBuilder\Form\Capsule;
-use Koverae\KoveraeUiBuilder\Form\Group;
-use Koverae\KoveraeUiBuilder\Form\Input;
-use Koverae\KoveraeUiBuilder\Form\Tabs;
-use Koverae\KoveraeUiBuilder\Form\Table;
+use Koverae\KoveraeBuilder\Form\SimpleForm;
+use Koverae\KoveraeBuilder\Form\Capsule;
+use Koverae\KoveraeBuilder\Form\Group;
+use Koverae\KoveraeBuilder\Form\Input;
+use Koverae\KoveraeBuilder\Form\Tabs;
+use Koverae\KoveraeBuilder\Form\Table;
 
 class {{componentClass}} extends SimpleForm
 {

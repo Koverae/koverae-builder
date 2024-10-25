@@ -2,8 +2,8 @@
 
 namespace [namespace];
 
-use Koverae\KoveraeUiBuilder\Navbar\ControlPanel;
-use Koverae\KoveraeUiBuilder\Navbar\SwitchButton;
+use Koverae\KoveraeBuilder\Navbar\ControlPanel;
+use Koverae\KoveraeBuilder\Navbar\SwitchButton;
 
 class [class] extends ControlPanel
 {
