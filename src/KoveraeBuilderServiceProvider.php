@@ -3,6 +3,12 @@
 namespace Koverae\KoveraeBuilder;
 
 use Illuminate\Support\ServiceProvider;
+use Koverae\KoveraeBuilder\Commands\MakeCartCommand;
+use Koverae\KoveraeBuilder\Commands\MakeControlPanelCommand;
+use Koverae\KoveraeBuilder\Commands\MakeFormCommand;
+use Koverae\KoveraeBuilder\Commands\MakeTableCommand;
+use Koverae\KoveraeBuilder\Commands\ModuleMakeCommand;
+use Koverae\KoveraeBuilder\Commands\PackageInstallMessageCommand;
 
 class KoveraeBuilderServiceProvider extends ServiceProvider
 {
@@ -40,7 +46,14 @@ class KoveraeBuilderServiceProvider extends ServiceProvider
             ], 'lang');*/
 
             // Registering package commands.
-            // $this->commands([]);
+            $this->commands([
+                MakeControlPanelCommand::class,
+                MakeFormCommand::class,
+                ModuleMakeCommand::class,
+                MakeTableCommand::class,
+                MakeCartCommand::class,
+                PackageInstallMessageCommand::class,
+            ]);
         }
     }
 
