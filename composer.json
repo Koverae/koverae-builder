@@ -23,7 +23,7 @@
     ],
     "require": {
         "php": "^7.4|^8.2",
-        "laravel/framework": "^10.0",
+        "laravel/framework": "^11.9",
         "livewire/livewire": "^3.0",
         "nwidart/laravel-modules": "^10.0",
         "larswiegers/laravel-maps": "^0.18.0",
