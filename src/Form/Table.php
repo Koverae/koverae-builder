@@ -1,11 +1,11 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Form;
+namespace Koverae\KoveraeBuilder\Form;
 
 use Illuminate\Database\Eloquent\Builder;
 class Table{
 
-    public string $component = 'koverae-ui-builder::components.form.tab.table.simple';
+    public string $component = 'koverae-builder::components.form.tab.table.simple';
 
     public string $key;
     public $type;

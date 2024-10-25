@@ -1,10 +1,10 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Form;
+namespace Koverae\KoveraeBuilder\Form;
 
 class Group{
 
-    public string $component = 'koverae-ui-builder::components.form.tab.group.simple';
+    public string $component = 'koverae-builder::components.form.tab.group.simple';
 
     public string $key;
 

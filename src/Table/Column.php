@@ -1,10 +1,10 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Table;
+namespace Koverae\KoveraeBuilder\Table;
 
 class Column
 {
-    public string $component = 'koverae-ui-builder::table.column.simple';
+    public string $component = 'koverae-builder::table.column.simple';
 
     public string $key;
 

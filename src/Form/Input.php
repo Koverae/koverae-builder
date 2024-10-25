@@ -1,10 +1,10 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Form;
+namespace Koverae\KoveraeBuilder\Form;
 
 class Input{
 
-    public string $component = 'koverae-ui-builder::form.input.simple';
+    public string $component = 'koverae-builder::form.input.simple';
     public string $key;
 
     public $label;

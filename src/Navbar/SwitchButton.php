@@ -1,10 +1,10 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Navbar;
+namespace Koverae\KoveraeBuilder\Navbar;
 
 class SwitchButton{
 
-    public string $component = 'koverae-ui-builder::navbar.switch-button';
+    public string $component = 'koverae-builder::navbar.switch-button';
     public string $key;
     public string $action;
 

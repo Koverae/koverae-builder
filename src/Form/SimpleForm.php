@@ -1,10 +1,10 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Form;
+namespace Koverae\KoveraeBuilder\Form;
 
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
-use Koverae\KoveraeUiBuilder\Traits\Form\Button\ActionBarButton as ActionBarButtonTrait;
+use Koverae\KoveraeBuilder\Traits\Form\Button\ActionBarButton as ActionBarButtonTrait;
 
 abstract class SimpleForm extends Component
 {
@@ -15,7 +15,7 @@ abstract class SimpleForm extends Component
 
     public function render()
     {
-        return view('koverae-ui-builder::form.simple-form');
+        return view('koverae-builder::form.simple-form');
     }
 
     public function form(){

@@ -1,10 +1,10 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Form;
+namespace Koverae\KoveraeBuilder\Form;
 
 class Capsule{
 
-    public string $component = 'koverae-ui-builder::components.form.capsule.simple';
+    public string $component = 'koverae-builder::components.form.capsule.simple';
 
     public string $key;
 

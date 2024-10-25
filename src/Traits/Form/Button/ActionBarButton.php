@@ -1,6 +1,6 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Traits\Form\Button;
+namespace Koverae\KoveraeBuilder\Traits\Form\Button;
 
 
 trait ActionBarButton{

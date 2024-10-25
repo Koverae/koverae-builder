@@ -1,10 +1,10 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Form;
+namespace Koverae\KoveraeBuilder\Form;
 
 class Tabs{
 
-    public string $component = 'koverae-ui-builder::components.form.tab.simple';
+    public string $component = 'koverae-builder::components.form.tab.simple';
 
     public string $key;
 

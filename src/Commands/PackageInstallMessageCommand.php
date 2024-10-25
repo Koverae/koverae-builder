@@ -1,6 +1,6 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Commands;
+namespace Koverae\KoveraeBuilder\Commands;
 
 use Illuminate\Console\Command;
 

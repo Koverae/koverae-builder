@@ -1,6 +1,6 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Table;
+namespace Koverae\KoveraeBuilder\Table;
 
 use Livewire\Component;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +15,7 @@ abstract class Table extends Component
     public $longitude = -0.09;
 
     public $view_type = 'lists';
-    public $view = 'koverae-ui-builder::table.table';
+    public $view = 'koverae-builder::table.table';
     public $components = [
         'lists' => [
             'view' => 'koverae-ui-builder::table.table',

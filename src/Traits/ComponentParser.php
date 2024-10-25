@@ -1,6 +1,6 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Traits;
+namespace Koverae\KoveraeBuilder\Traits;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Mhmiton\LaravelModulesLivewire\Support\Decomposer;

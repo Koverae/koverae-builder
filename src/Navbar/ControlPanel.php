@@ -1,6 +1,6 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Navbar;
+namespace Koverae\KoveraeBuilder\Navbar;
 
 use Illuminate\Support\Arr;
 use Livewire\Component;
@@ -32,7 +32,7 @@ abstract class ControlPanel extends Component
 
     public function render()
     {
-        return view('koverae-ui-builder::navbar.control-panel');
+        return view('koverae-builder::navbar.control-panel');
     }
 
     public function switchButtons() : array{

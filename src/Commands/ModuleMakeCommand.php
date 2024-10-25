@@ -1,10 +1,10 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Commands;
+namespace Koverae\KoveraeBuilder\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-use Koverae\KoveraeUiBuilder\Traits\ComponentParser;
+use Koverae\KoveraeBuilder\Traits\ComponentParser;
 
 class ModuleMakeCommand extends Command
 {

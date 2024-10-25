@@ -1,13 +1,13 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Table;
+namespace Koverae\KoveraeBuilder\Table;
 
 use Livewire\Component;
 use Illuminate\Database\Eloquent\Builder;
 
 class Card
 {
-    public string $component = 'koverae-ui-builder::table.card.simple';
+    public string $component = 'koverae-builder::table.card.simple';
 
     public string $key;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Navbar;
+namespace Koverae\KoveraeBuilder\Navbar;
 
 class Breadcrumb{
 
@@ -12,7 +12,7 @@ class Breadcrumb{
     public string $key;
 
     public string $label;
-    public string $component = 'koverae-ui-builder::navbar.breadcrumb';
+    public string $component = 'koverae-builder::navbar.breadcrumb';
 
     public function __construct($key, $label)
     {

@@ -21,7 +21,7 @@ class KoveraeBuilderServiceProvider extends ServiceProvider
          * Optional methods to load your package assets
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'koverae-builder');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'koverae-builder');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'koverae-builder');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
@@ -31,9 +31,9 @@ class KoveraeBuilderServiceProvider extends ServiceProvider
             ], 'config');
 
             // Publishing the views.
-            /*$this->publishes([
+            $this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views/vendor/koverae-builder'),
-            ], 'views');*/
+            ], 'views');
 
             // Publishing assets.
             /*$this->publishes([

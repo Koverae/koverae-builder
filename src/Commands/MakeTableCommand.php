@@ -1,11 +1,11 @@
 <?php
 
-namespace Koverae\KoveraeUiBuilder\Commands;
+namespace Koverae\KoveraeBuilder\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Illuminate\Filesystem\Filesystem;
-use Koverae\KoveraeUiBuilder\Traits\ComponentParser;
+use Koverae\KoveraeBuilder\Traits\ComponentParser;
 
 class MakeTableCommand extends Command
 {
