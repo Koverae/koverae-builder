@@ -11,114 +11,53 @@ use Koverae\KoveraeBuilder\Traits\ComponentParser;
 class MakePageCommand extends Command
 {
     use ComponentParser;
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'koverae:make-page {component} {--view=} {--force} {--inline} {--stub=} {--custom}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
+    protected $signature = 'koverae:make-page {component} {--inline}';
     protected $description = 'Create a new page for Koverae Builder.';
-
-    /**
-     * Filesystem instance to handle file generation.
-     *
-     * @var Filesystem
-     */
     protected $files;
 
-    /**
-     * Create a new command instance.
-     *
-     * @param Filesystem $files
-     */
     public function __construct(Filesystem $files)
     {
         parent::__construct();
         $this->files = $files;
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle(): int
     {
+        // Extract component path and class
         $component = Str::studly($this->argument('component'));
         $path = $this->getPath($component);
-        $view_path = $this->getViewPath($component);
+        $viewPath = $this->getViewPath($component);
 
+        // Generate directory and class if they do not exist
         if ($this->files->exists($path)) {
             $this->error("Component [{$component}] already exists!");
             return 0;
         }
 
         $this->makeDirectory($path);
-        $this->createView();
-        $this->files->put($path, $this->getStubContent($component));
+        $this->makeDirectory($viewPath);
 
-        // Display the class, view, and tag
-        $this->displayComponentInfo($component);
+        // Create the class file and view file
+        $this->files->put($path, $this->getStubContent($component));
+        $this->files->put($viewPath, $this->getViewContent());
+
+        $this->info("Component created successfully: Livewire/Page/{$component}");
 
         return 0;
     }
-    
 
-    protected function createView()
-    {
-        if ($this->isInline()) {
-            return false;
-        }
-
-        $viewFile = $this->component->view->file;
-
-        if (File::exists($viewFile) && ! $this->isForce()) {
-            $this->line("<fg=red;options=bold>View already exists:</> {$this->getViewSourcePath()}");
-
-            return false;
-        }
-
-        $this->ensureDirectoryExists($viewFile);
-
-        File::put($viewFile, $this->getViewContents());
-
-        return $this->component->view;
-    }
-
-    /**
-     * Get the destination path where the component should be created.
-     *
-     * @param string $component
-     * @return string
-     */
     protected function getPath(string $component): string
     {
-        return app_path("Livewire/Page/{$component}.php");
+        $componentPath = str_replace('/', DIRECTORY_SEPARATOR, $component);
+        return app_path("Livewire/Page/{$componentPath}.php");
     }
 
-    /**
-     * Get the destination path where the component should be created.
-     *
-     * @param string $component
-     * @return string
-     */
     protected function getViewPath(string $component): string
     {
-        return resource_path("livewire/page/{$component}.blade.php");
+        $componentPath = Str::kebab(str_replace('/', DIRECTORY_SEPARATOR, $component));
+        return resource_path("views/livewire/page/{$componentPath}.blade.php");
     }
 
-    /**
-     * Create the directory for the component if it doesn't exist.
-     *
-     * @param string $path
-     * @return void
-     */
     protected function makeDirectory(string $path): void
     {
         if (!$this->files->isDirectory(dirname($path))) {
@@ -126,17 +65,15 @@ class MakePageCommand extends Command
         }
     }
 
-    /**
-     * Get the stub content for the new component class.
-     *
-     * @param string $component
-     * @return string
-     */
     protected function getStubContent(string $component): string
     {
+        $namespace = 'App\\Livewire\\Page\\' . str_replace('/', '\\', $component);
+        $class = Str::afterLast($component, '/');
+        $viewName = Str::kebab(str_replace('/', '.', $component)); // Converts "Reservation/Lists" to "reservation.lists"
+
         return str_replace(
-            ['{{component}}', '{{componentClass}}'],
-            [$component, Str::studly($component)],
+            ['{{namespace}}', '{{class}}', '{{viewName}}'],
+            [$namespace, $class, $viewName],
             $this->files->get($this->getStubPath())
         );
     }
@@ -151,22 +88,19 @@ class MakePageCommand extends Command
         return __DIR__ . '/stubs/page/page.stub';
     }
 
-    /**
-     * Display the class, view, and tag.
-     *
-     * @param string $className
-     */
-    protected function displayComponentInfo($className)
+    protected function getViewContent(): string
     {
-        $slug = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $className));
+        return "<div>\n    <!-- Page Content -->\n</div>";
+    }
 
-        $classPath = "App/Livewire/Page/{$className}";
-        // $viewPath = "resources/views/livewire/page/{$slug}.blade.php";
+    protected function displayComponentInfo(string $page)
+    {
+        $slug = Str::kebab($page);
+        $classPath = "App/Livewire/Page/{$page}";
         $tag = "<livewire:page.{$slug} />";
 
-        $this->line("<options=bold,reverse;fg=green> COMPONENT CREATED </> 🤙🏿\n");
+        $this->line("<options=bold,reverse;fg=green> COMPONENT CREATED </>\n");
         $this->line("<options=bold;fg=green>CLASS:</> {$classPath}");
-        // $this->line("VIEW: {$viewPath}");
         $this->line("<options=bold;fg=green>TAG:</> {$tag}");
     }
 
