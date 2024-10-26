@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Livewire\Page;
+
+class {{componentClass}} extends SimplePage
+{
+    public function render()
+    {
+        return view('livewire.home-page')
+        ->extends('layouts.main');
+    }
+}

@@ -119,7 +119,7 @@ trait ComponentParser{
 
         $defaultStubDir = __DIR__.'/../Commands/stubs/'. $type. '/';
 
-        $stubDir = File::isDirectory($publishedStubDir = base_path('stubs/koverae-ui-builder/'))
+        $stubDir = File::isDirectory($publishedStubDir = base_path('stubs/koverae-builder/'))
             ? $publishedStubDir
             : $defaultStubDir;
 
@@ -138,9 +138,9 @@ trait ComponentParser{
             ? $stubDir.$classStubName
             : $defaultStubDir.$classStubName;
 
-        $viewStub = File::exists($stubDir.'livewire.view.stub')
-            ? $stubDir.'livewire.view.stub'
-            : $defaultStubDir.'livewire.view.stub';
+        $viewStub = File::exists($stubDir.$type.'.view.stub')
+            ? $stubDir.$type.'.view.stub'
+            : $defaultStubDir.$type.'.view.stub';
 
         return (object) [
             'dir' => $stubDir,

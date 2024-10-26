@@ -5,6 +5,7 @@ namespace Koverae\KoveraeBuilder\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\File;
 use Koverae\KoveraeBuilder\Traits\ComponentParser;
 
 class MakePageCommand extends Command
@@ -58,12 +59,35 @@ class MakePageCommand extends Command
         }
 
         $this->makeDirectory($path);
+        $this->createView();
         $this->files->put($path, $this->getStubContent($component));
 
         // Display the class, view, and tag
         $this->displayComponentInfo($component);
 
         return 0;
+    }
+    
+
+    protected function createView()
+    {
+        if ($this->isInline()) {
+            return false;
+        }
+
+        $viewFile = $this->component->view->file;
+
+        if (File::exists($viewFile) && ! $this->isForce()) {
+            $this->line("<fg=red;options=bold>View already exists:</> {$this->getViewSourcePath()}");
+
+            return false;
+        }
+
+        $this->ensureDirectoryExists($viewFile);
+
+        File::put($viewFile, $this->getViewContents());
+
+        return $this->component->view;
     }
 
     /**
