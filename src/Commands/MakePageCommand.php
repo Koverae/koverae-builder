@@ -41,7 +41,8 @@ class MakePageCommand extends Command
         $this->files->put($path, $this->getStubContent($component));
         $this->files->put($viewPath, $this->getViewContent());
 
-        $this->info("Component created successfully: Livewire/Page/{$component}");
+        // Display the class, view, and tag
+        $this->displayComponentInfo($component);
 
         return 0;
     }
@@ -99,7 +100,7 @@ class MakePageCommand extends Command
         $classPath = "App/Livewire/Page/{$page}";
         $tag = "<livewire:page.{$slug} />";
 
-        $this->line("<options=bold,reverse;fg=green> COMPONENT CREATED </>\n");
+        $this->line("<options=bold,reverse;fg=green> COMPONENT CREATED </> 🤙🏿 \n");
         $this->line("<options=bold;fg=green>CLASS:</> {$classPath}");
         $this->line("<options=bold;fg=green>TAG:</> {$tag}");
     }
