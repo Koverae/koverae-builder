@@ -56,7 +56,8 @@ class MakePageCommand extends Command
     protected function getViewPath(string $component): string
     {
         // Replace slashes with DIRECTORY_SEPARATOR for the correct nested structure
-        $componentPath = str_replace('/', DIRECTORY_SEPARATOR, $component);
+        // $componentPath = str_replace('/', DIRECTORY_SEPARATOR, $component);
+        $componentPath = strtolower(preg_replace('/(?<!^)(?=[A-Z])/', '-', $component));
         // Generate the kebab-cased file name
         $fileName = Str::kebab(str_replace('/', '-', $component)); // Change slashes to hyphens for the filename
         return resource_path("views/livewire/page/{$componentPath}.blade.php"); // Keep the nested structure
@@ -74,7 +75,7 @@ class MakePageCommand extends Command
         // $namespace = 'App\\Livewire\\Page\\' . str_replace('/', '\\', $component);
         $namespace = $this->getNamespace($component);
         $class = Str::afterLast($component, '/');
-        $viewName = 'livewire.page.' . str('/', '.', Str::kebab($component)); // Ensure correct view name for stubs
+        $viewName = 'livewire.page.' . Str::kebab($component); // Ensure correct view name for stubs
 
         return str_replace(
             ['{{namespace}}', '{{class}}', '{{viewName}}'],
