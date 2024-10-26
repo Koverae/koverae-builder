@@ -55,8 +55,9 @@ class MakePageCommand extends Command
 
     protected function getViewPath(string $component): string
     {
-        $componentPath = Str::kebab(str_replace('/', DIRECTORY_SEPARATOR, $component));
-        return resource_path("views/livewire/page/{$componentPath}.blade.php");
+        // Use the class name for the view without leading hyphen
+        $viewName = Str::kebab(str_replace('/', '-', $component)); // Replace '/' with '-' instead of '.' to avoid leading hyphen
+        return resource_path("views/livewire/page/{$viewName}.blade.php");
     }
 
     protected function makeDirectory(string $path): void
@@ -68,10 +69,9 @@ class MakePageCommand extends Command
 
     protected function getStubContent(string $component): string
     {
-        // $namespace = 'App\\Livewire\\Page\\' . str_replace('/', '\\', $component);
         $namespace = $this->getNamespace($component);
         $class = Str::afterLast($component, '/');
-        $viewName = 'livewire.page.' . Str::kebab(str_replace('/', '.', $component)); // Ensures nested and kebab-cased view path
+        $viewName = 'livewire.page.' . Str::kebab(str_replace('/', '-', $component)); // Ensure nested and kebab-cased view path
 
         return str_replace(
             ['{{namespace}}', '{{class}}', '{{viewName}}'],
@@ -79,7 +79,7 @@ class MakePageCommand extends Command
             $this->files->get($this->getStubPath())
         );
     }
-
+    
     protected function getNamespace(string $component): string
     {
         $componentParts = explode('/', $component);
