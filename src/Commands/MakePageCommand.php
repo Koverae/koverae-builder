@@ -55,9 +55,11 @@ class MakePageCommand extends Command
 
     protected function getViewPath(string $component): string
     {
-        // Use the class name for the view without leading hyphen
-        $viewName = Str::kebab(str_replace('/', '-', $component)); // Replace '/' with '-' instead of '.' to avoid leading hyphen
-        return resource_path("views/livewire/page/{$viewName}.blade.php");
+        // Replace slashes with DIRECTORY_SEPARATOR for the correct nested structure
+        $componentPath = str_replace('/', DIRECTORY_SEPARATOR, $component);
+        // Generate the kebab-cased file name
+        $fileName = Str::kebab(str_replace('/', '-', $component)); // Change slashes to hyphens for the filename
+        return resource_path("views/livewire/page/{$componentPath}.blade.php"); // Keep the nested structure
     }
 
     protected function makeDirectory(string $path): void
@@ -69,9 +71,10 @@ class MakePageCommand extends Command
 
     protected function getStubContent(string $component): string
     {
+        // $namespace = 'App\\Livewire\\Page\\' . str_replace('/', '\\', $component);
         $namespace = $this->getNamespace($component);
         $class = Str::afterLast($component, '/');
-        $viewName = 'livewire.page.' . Str::kebab(str_replace('/', '-', $component)); // Ensure nested and kebab-cased view path
+        $viewName = 'livewire.page.' . Str::kebab($component); // Ensure correct view name for stubs
 
         return str_replace(
             ['{{namespace}}', '{{class}}', '{{viewName}}'],
@@ -79,7 +82,7 @@ class MakePageCommand extends Command
             $this->files->get($this->getStubPath())
         );
     }
-    
+
     protected function getNamespace(string $component): string
     {
         $componentParts = explode('/', $component);
@@ -107,13 +110,13 @@ class MakePageCommand extends Command
     protected function displayComponentInfo(string $component)
     {
         // Kebab-cased view path for Livewire conventions
-        $slug = Str::kebab(str_replace('/', '.', $component));
+        $slug = Str::kebab(str_replace('/', '-', $component)); // Change slashes to hyphens
         
         // Class path formatted to match nested directories
         $classPath = "App/Livewire/Page/" . str_replace('/', '/', $component);
 
-        // View path, which should be in the "resources/views/livewire/page/<component>.blade.php" format
-        $viewPath = "resources/views/livewire/page/{$slug}.blade.php";
+        // View path in the correct nested format
+        $viewPath = "resources/views/livewire/page/" . str_replace('/', DIRECTORY_SEPARATOR, $component) . ".blade.php";
 
         // Tag format for Livewire component
         $tag = "<livewire:page.{$slug} />";
