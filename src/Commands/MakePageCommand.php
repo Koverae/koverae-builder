@@ -52,6 +52,7 @@ class MakePageCommand extends Command
     {
         $component = Str::studly($this->argument('component'));
         $path = $this->getPath($component);
+        $view_path = $this->getViewPath($component);
 
         if ($this->files->exists($path)) {
             $this->error("Component [{$component}] already exists!");
@@ -99,6 +100,17 @@ class MakePageCommand extends Command
     protected function getPath(string $component): string
     {
         return app_path("Livewire/Page/{$component}.php");
+    }
+
+    /**
+     * Get the destination path where the component should be created.
+     *
+     * @param string $component
+     * @return string
+     */
+    protected function getViewPath(string $component): string
+    {
+        return resource_path("livewire/page/{$component}.blade.php");
     }
 
     /**
