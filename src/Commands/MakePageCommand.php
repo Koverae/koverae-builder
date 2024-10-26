@@ -75,7 +75,7 @@ class MakePageCommand extends Command
         // $namespace = 'App\\Livewire\\Page\\' . str_replace('/', '\\', $component);
         $namespace = $this->getNamespace($component);
         $class = Str::afterLast($component, '/');
-        $viewName = 'livewire.page.' . Str::kebab($component); // Ensure correct view name for stubs
+        $viewName = 'livewire.page.' . Str::kebab(str_replace('/', '.', $component)); // Ensure correct view name for stubs
 
         return str_replace(
             ['{{namespace}}', '{{class}}', '{{viewName}}'],
