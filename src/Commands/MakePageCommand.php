@@ -111,7 +111,7 @@ class MakePageCommand extends Command
     {
         // Kebab-cased view path for Livewire conventions
         // $slug = Str::kebab(str_replace('/', '.', $component)); // Change slashes to hyphens
-        $slug = strtolower(preg_replace('/(?<!^)(?=[A-Z])/', '-', $component)); // Change slashes to hyphens
+        $slug = preg_replace('/\/-/', '/', strtolower(preg_replace('/(?<!^)(?=[A-Z])/', '-', $component))); // Change slashes to hyphens
         
         // Class path formatted to match nested directories
         $classPath = "App/Livewire/Page/" . str_replace('/', '/', $component);
@@ -119,7 +119,7 @@ class MakePageCommand extends Command
         // View path in the correct nested format
         $viewPath = "resources/views/livewire/page/" . $slug . ".blade.php";
 
-        $tag_slug = str_replace('/', '.', $slug);
+        $tag_slug = preg_replace('/\.-/', '/',  Str::kebab(str_replace('/', '.', $component)));
         // Tag format for Livewire component
         $tag = "<livewire:page.{$tag_slug} />";
 
