@@ -116,7 +116,7 @@ class MakePageCommand extends Command
         $classPath = "App/Livewire/Page/" . str_replace('/', '/', $component);
 
         // View path in the correct nested format
-        $viewPath = "resources/views/livewire/page/" . str_replace('/', DIRECTORY_SEPARATOR, strtolower($component)) . ".blade.php";
+        $viewPath = "resources/views/livewire/page/" . Str::kebab(str_replace('/', DIRECTORY_SEPARATOR, strtolower($component))) . ".blade.php";
 
         // Tag format for Livewire component
         $tag = "<livewire:page.{$slug} />";
