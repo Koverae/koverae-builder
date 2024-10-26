@@ -68,9 +68,10 @@ class MakePageCommand extends Command
 
     protected function getStubContent(string $component): string
     {
-        $namespace = 'App\\Livewire\\Page\\' . str_replace('/', '\\', $component);
+        // $namespace = 'App\\Livewire\\Page\\' . str_replace('/', '\\', $component);
+        $namespace = $this->getNamespace($component);
         $class = Str::afterLast($component, '/');
-        $viewName = Str::kebab(str_replace('/', '.', $component)); // Converts "Reservation/Lists" to "reservation.lists"
+        $viewName = 'livewire.page.' . Str::kebab(str_replace('/', '.', $component)); // Ensures nested and kebab-cased view path
 
         return str_replace(
             ['{{namespace}}', '{{class}}', '{{viewName}}'],
@@ -79,6 +80,15 @@ class MakePageCommand extends Command
         );
     }
 
+    protected function getNamespace(string $component): string
+    {
+        $componentParts = explode('/', $component);
+        array_pop($componentParts); // Remove the class name part
+        $namespace = implode('\\', $componentParts);
+    
+        return "App\\Livewire\\Page" . ($namespace ? "\\" . $namespace : "");
+    }
+    
     /**
      * Get the path to the stub file.
      *
@@ -91,17 +101,27 @@ class MakePageCommand extends Command
 
     protected function getViewContent(): string
     {
-        return "<div>\n    <!-- Page Content -->\n</div>";
+        return "<div>\n    <!-- Koverae Page Content -->\n</div>";
     }
 
-    protected function displayComponentInfo(string $page)
+    protected function displayComponentInfo(string $component)
     {
-        $slug = Str::kebab($page);
-        $classPath = "App/Livewire/Page/{$page}";
+        // Kebab-cased view path for Livewire conventions
+        $slug = Str::kebab(str_replace('/', '.', $component));
+        
+        // Class path formatted to match nested directories
+        $classPath = "App/Livewire/Page/" . str_replace('/', '/', $component);
+
+        // View path, which should be in the "resources/views/livewire/page/<component>.blade.php" format
+        $viewPath = "resources/views/livewire/page/{$slug}.blade.php";
+
+        // Tag format for Livewire component
         $tag = "<livewire:page.{$slug} />";
 
+        // Display the results in the console
         $this->line("<options=bold,reverse;fg=green> COMPONENT CREATED </> 🤙🏿 \n");
         $this->line("<options=bold;fg=green>CLASS:</> {$classPath}");
+        $this->line("<options=bold;fg=green>VIEW:</> {$viewPath}");
         $this->line("<options=bold;fg=green>TAG:</> {$tag}");
     }
 
