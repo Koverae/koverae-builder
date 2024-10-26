@@ -16,7 +16,7 @@ class MakePageCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'koverae:make-page {component}';
+    protected $signature = 'koverae:make-page {component} {--view=} {--force} {--inline} {--stub=} {--custom}';
 
     /**
      * The console command description.
