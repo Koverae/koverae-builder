@@ -72,10 +72,9 @@ class MakePageCommand extends Command
 
     protected function getStubContent(string $component): string
     {
-        // $namespace = 'App\\Livewire\\Page\\' . str_replace('/', '\\', $component);
         $namespace = $this->getNamespace($component);
         $class = Str::afterLast($component, '/');
-        $viewName = 'livewire.page.' . Str::kebab(str_replace('/', '.', $component)); // Ensure correct view name for stubs
+        $viewName = 'livewire.page.' . preg_replace('/\/-/', '/',  Str::kebab(str_replace('/', '.', $component))); // Ensure correct view name for stubs
 
         return str_replace(
             ['{{namespace}}', '{{class}}', '{{viewName}}'],
