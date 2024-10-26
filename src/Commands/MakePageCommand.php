@@ -74,7 +74,7 @@ class MakePageCommand extends Command
     {
         $namespace = $this->getNamespace($component);
         $class = Str::afterLast($component, '/');
-        $viewName = 'livewire.page.' . preg_replace('/\.-/', '/',  Str::kebab(str_replace('/', '.', $component))); // Ensure correct view name for stubs
+        $viewName = 'livewire.page.' . preg_replace('/\.-/', '.',  Str::kebab(str_replace('/', '.', $component))); // Ensure correct view name for stubs
 
         return str_replace(
             ['{{namespace}}', '{{class}}', '{{viewName}}'],
@@ -119,7 +119,7 @@ class MakePageCommand extends Command
         // View path in the correct nested format
         $viewPath = "resources/views/livewire/page/" . $slug . ".blade.php";
 
-        $tag_slug = preg_replace('/\.-/', '/',  Str::kebab(str_replace('/', '.', $component)));
+        $tag_slug = preg_replace('/\.-/', '.',  Str::kebab(str_replace('/', '.', $component)));
         // Tag format for Livewire component
         $tag = "<livewire:page.{$tag_slug} />";
 
