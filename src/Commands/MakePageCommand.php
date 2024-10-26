@@ -57,7 +57,7 @@ class MakePageCommand extends Command
     {
         // Replace slashes with DIRECTORY_SEPARATOR for the correct nested structure
         // $componentPath = str_replace('/', DIRECTORY_SEPARATOR, $component);
-        $componentPath = strtolower(preg_replace('/(?<!^)(?=[A-Z])/', '-', $component));
+        $componentPath = preg_replace('/\/-/', '/', strtolower(preg_replace('/(?<!^)(?=[A-Z])/', '-', $component)));
         // Generate the kebab-cased file name
         $fileName = Str::kebab(str_replace('/', '-', $component)); // Change slashes to hyphens for the filename
         return resource_path("views/livewire/page/{$componentPath}.blade.php"); // Keep the nested structure
@@ -74,7 +74,7 @@ class MakePageCommand extends Command
     {
         $namespace = $this->getNamespace($component);
         $class = Str::afterLast($component, '/');
-        $viewName = 'livewire.page.' . preg_replace('/\/-/', '/',  Str::kebab(str_replace('/', '.', $component))); // Ensure correct view name for stubs
+        $viewName = 'livewire.page.' . preg_replace('/\.-/', '/',  Str::kebab(str_replace('/', '.', $component))); // Ensure correct view name for stubs
 
         return str_replace(
             ['{{namespace}}', '{{class}}', '{{viewName}}'],
