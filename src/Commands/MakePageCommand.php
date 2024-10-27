@@ -2,24 +2,12 @@
 
 namespace Koverae\KoveraeBuilder\Commands;
 
-use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\File;
-use Koverae\KoveraeBuilder\Traits\ComponentParser;
 
 class MakePageCommand extends BaseCommand
 {
-    use ComponentParser;
     protected $signature = 'koverae:make-page {component} {--inline}';
     protected $description = 'Create a new page for Koverae Builder.';
-    // protected $files;
-
-    // public function __construct(Filesystem $files)
-    // {
-    //     parent::__construct();
-    //     $this->files = $files;
-    // }
 
     public function handle(): int
     {
@@ -61,13 +49,6 @@ class MakePageCommand extends BaseCommand
         return resource_path("views/livewire/page/{$componentPath}.blade.php"); // Keep the nested structure
     }
 
-    // protected function makeDirectory(string $path): void
-    // {
-    //     if (!$this->files->isDirectory(dirname($path))) {
-    //         $this->files->makeDirectory(dirname($path), 0755, true);
-    //     }
-    // }
-
     protected function getStubContent(string $component): string
     {
         $namespace = $this->getNamespace($component);
@@ -86,11 +67,10 @@ class MakePageCommand extends BaseCommand
         $class = Str::afterLast($component, '/');
 
         return str_replace(
-            ['{{class}}'],
+            ['{class}'],
             [$class],
             $this->files->get($this->getViewStubPath())
         );
-        // return "<div>\n    <!-- Koverae Page Content -->\n</div>";
     }
 
     protected function getNamespace(string $component): string

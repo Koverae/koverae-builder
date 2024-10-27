@@ -25,7 +25,9 @@ abstract class BaseCommand extends Command
 
     abstract protected function getPath(string $component) : string;
 
-    abstract protected function getViewPath(string $component) : string;
+    protected function getViewPath(string $component) : string{
+        return '';
+    }
     
     protected function makeDirectory(string $path): void
     {
@@ -36,13 +38,17 @@ abstract class BaseCommand extends Command
 
     abstract protected function getStubContent(string $component) : string;
 
-    abstract protected function getViewContent(string $component) : string;
+    protected function getViewContent(string $component) : string{
+        return '';
+    }
 
     abstract protected function getNamespace(string $component) : string;
 
     abstract protected function getStubPath() : string;
 
-    abstract protected function getViewStubPath() : string;
+    protected function getViewStubPath() : string{
+        return '';
+    }
 
     abstract protected function displayComponentInfo(string $component);
 

@@ -2,14 +2,10 @@
 
 namespace Koverae\KoveraeBuilder\Commands;
 
-use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use Illuminate\Filesystem\Filesystem;
-use Koverae\KoveraeBuilder\Traits\ComponentParser;
 
-class MakeControlPanelCommand extends Command
+class MakeControlPanelCommand extends BaseCommand
 {
-    use ComponentParser;
     /**
      * The name and signature of the console command.
      *
@@ -23,24 +19,6 @@ class MakeControlPanelCommand extends Command
      * @var string
      */
     protected $description = 'Create a new control panel component for Koverae UI Builder.';
-
-    /**
-     * Filesystem instance to handle file generation.
-     *
-     * @var Filesystem
-     */
-    protected $files;
-
-    /**
-     * Create a new command instance.
-     *
-     * @param Filesystem $files
-     */
-    public function __construct(Filesystem $files)
-    {
-        parent::__construct();
-        $this->files = $files;
-    }
 
     /**
      * Execute the console command.
@@ -74,20 +52,8 @@ class MakeControlPanelCommand extends Command
      */
     protected function getPath(string $component): string
     {
-        return app_path("Livewire/Navbar/ControlPanel/{$component}.php");
-    }
-
-    /**
-     * Create the directory for the component if it doesn't exist.
-     *
-     * @param string $path
-     * @return void
-     */
-    protected function makeDirectory(string $path): void
-    {
-        if (!$this->files->isDirectory(dirname($path))) {
-            $this->files->makeDirectory(dirname($path), 0755, true);
-        }
+        $componentPath = str_replace('/', DIRECTORY_SEPARATOR, $component);
+        return app_path("Livewire/Navbar/ControlPanel/{$componentPath}.php");
     }
 
     /**
@@ -98,11 +64,23 @@ class MakeControlPanelCommand extends Command
      */
     protected function getStubContent(string $component): string
     {
+        $namespace = $this->getNamespace($component);
+        $class = Str::afterLast($component, '/');
+        
         return str_replace(
-            ['{{component}}', '{{componentClass}}'],
-            [$component, Str::studly($component)],
+            ['{{namespace}}', '{{class}}'],
+            [$namespace, $class],
             $this->files->get($this->getStubPath())
         );
+    }
+
+    protected function getNamespace(string $component): string
+    {
+        $componentParts = explode('/', $component);
+        array_pop($componentParts); // Remove the class name part
+        $namespace = implode('\\', $componentParts);
+    
+        return "App\\Livewire\\Navbar\\ControlPanel" . ($namespace ? "\\" . $namespace : "");
     }
 
     /**

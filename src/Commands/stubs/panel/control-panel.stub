@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Livewire\Navbar\ControlPanel;
+namespace {{namespace}};
 
 use Koverae\KoveraeBuilder\Navbar\ControlPanel;
 use Koverae\KoveraeBuilder\Navbar\SwitchButton;
 
-class {{componentClass}} extends ControlPanel
+class {{class}} extends ControlPanel
 {
 
     public function mount()
