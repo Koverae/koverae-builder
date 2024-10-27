@@ -1,1 +1,7 @@
-<!-- Hello world, it's Arden BOUET -->
+@extends(config('koverae-builder.default_layout'))
+
+@section('page_title, __('{{ class }} Page') )
+
+@section('content')
+    <!-- Koverae Page Content -->
+@endsection

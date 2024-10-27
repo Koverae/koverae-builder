@@ -8,24 +8,25 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\File;
 use Koverae\KoveraeBuilder\Traits\ComponentParser;
 
-class MakePageCommand extends Command
+class MakePageCommand extends BaseCommand
 {
     use ComponentParser;
     protected $signature = 'koverae:make-page {component} {--inline}';
     protected $description = 'Create a new page for Koverae Builder.';
-    protected $files;
+    // protected $files;
 
-    public function __construct(Filesystem $files)
-    {
-        parent::__construct();
-        $this->files = $files;
-    }
+    // public function __construct(Filesystem $files)
+    // {
+    //     parent::__construct();
+    //     $this->files = $files;
+    // }
 
     public function handle(): int
     {
         // Extract component path and class
         $component = Str::studly($this->argument('component'));
         $path = $this->getPath($component);
+
         $viewPath = $this->getViewPath($component);
 
         // Generate directory and class if they do not exist
@@ -39,7 +40,7 @@ class MakePageCommand extends Command
 
         // Create the class file and view file
         $this->files->put($path, $this->getStubContent($component));
-        $this->files->put($viewPath, $this->getViewContent());
+        $this->files->put($viewPath, $this->getViewContent($component));
 
         // Display the class, view, and tag
         $this->displayComponentInfo($component);
@@ -55,20 +56,17 @@ class MakePageCommand extends Command
 
     protected function getViewPath(string $component): string
     {
-        // Replace slashes with DIRECTORY_SEPARATOR for the correct nested structure
-        // $componentPath = str_replace('/', DIRECTORY_SEPARATOR, $component);
         $componentPath = preg_replace('/\/-/', '/', strtolower(preg_replace('/(?<!^)(?=[A-Z])/', '-', $component)));
-        // Generate the kebab-cased file name
-        $fileName = Str::kebab(str_replace('/', '-', $component)); // Change slashes to hyphens for the filename
+        
         return resource_path("views/livewire/page/{$componentPath}.blade.php"); // Keep the nested structure
     }
 
-    protected function makeDirectory(string $path): void
-    {
-        if (!$this->files->isDirectory(dirname($path))) {
-            $this->files->makeDirectory(dirname($path), 0755, true);
-        }
-    }
+    // protected function makeDirectory(string $path): void
+    // {
+    //     if (!$this->files->isDirectory(dirname($path))) {
+    //         $this->files->makeDirectory(dirname($path), 0755, true);
+    //     }
+    // }
 
     protected function getStubContent(string $component): string
     {
@@ -81,6 +79,18 @@ class MakePageCommand extends Command
             [$namespace, $class, $viewName],
             $this->files->get($this->getStubPath())
         );
+    }
+
+    protected function getViewContent(string $component): string
+    {
+        $class = Str::afterLast($component, '/');
+
+        return str_replace(
+            ['{{class}}'],
+            [$class],
+            $this->files->get($this->getViewStubPath())
+        );
+        // return "<div>\n    <!-- Koverae Page Content -->\n</div>";
     }
 
     protected function getNamespace(string $component): string
@@ -101,16 +111,19 @@ class MakePageCommand extends Command
     {
         return __DIR__ . '/stubs/page/page.stub';
     }
-
-    protected function getViewContent(): string
+    /**
+     * Get the path to the stub file.
+     *
+     * @return string
+     */
+    protected function getViewStubPath(): string
     {
-        return "<div>\n    <!-- Koverae Page Content -->\n</div>";
+        return __DIR__ . '/stubs/page/view.stub';
     }
 
     protected function displayComponentInfo(string $component)
     {
         // Kebab-cased view path for Livewire conventions
-        // $slug = Str::kebab(str_replace('/', '.', $component)); // Change slashes to hyphens
         $slug = preg_replace('/\/-/', '/', strtolower(preg_replace('/(?<!^)(?=[A-Z])/', '-', $component))); // Change slashes to hyphens
         
         // Class path formatted to match nested directories

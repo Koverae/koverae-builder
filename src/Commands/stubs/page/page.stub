@@ -2,9 +2,9 @@
 
 namespace {{namespace}};
 
-use Livewire\Component;
+use Koverae\KoveraeBuilder\Page\SimplePage;
 
-class {{class}} extends Component
+class {{class}} extends SimplePage
 {
     public function render()
     {
