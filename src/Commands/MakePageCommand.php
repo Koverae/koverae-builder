@@ -23,12 +23,15 @@ class MakePageCommand extends BaseCommand
             return 0;
         }
 
-        $this->makeDirectory($path);
-        $this->makeDirectory($viewPath);
-
         // Create the class file and view file
+        $this->makeDirectory($path);
         $this->files->put($path, $this->getStubContent($component));
-        $this->files->put($viewPath, $this->getViewContent($component));
+        
+        if(!$this->option('inline')){
+            $this->makeDirectory($viewPath);
+            $this->files->put($viewPath, $this->getViewContent($component));
+        }
+
 
         // Display the class, view, and tag
         $this->displayComponentInfo($component);
@@ -38,15 +41,17 @@ class MakePageCommand extends BaseCommand
 
     protected function getPath(string $component): string
     {
+        $basePath = config('koverae-builder.page_maker.default_path');
         $componentPath = str_replace('/', DIRECTORY_SEPARATOR, $component);
-        return app_path("Livewire/Page/{$componentPath}.php");
+        return app_path($basePath . $componentPath . '.php');
     }
 
     protected function getViewPath(string $component): string
     {
+        $basePath = config('koverae-builder.page_maker.default_view_path');
         $componentPath = preg_replace('/\/-/', '/', strtolower(preg_replace('/(?<!^)(?=[A-Z])/', '-', $component)));
         
-        return resource_path("views/livewire/page/{$componentPath}.blade.php"); // Keep the nested structure
+        return resource_path($basePath . $componentPath. ".blade.php"); // Keep the nested structure
     }
 
     protected function getStubContent(string $component): string
@@ -75,11 +80,12 @@ class MakePageCommand extends BaseCommand
 
     protected function getNamespace(string $component): string
     {
+        $baseNamespace = config('koverae-builder.page_maker.namespace');
         $componentParts = explode('/', $component);
         array_pop($componentParts); // Remove the class name part
         $namespace = implode('\\', $componentParts);
     
-        return "App\\Livewire\\Page" . ($namespace ? "\\" . $namespace : "");
+        return $baseNamespace . ($namespace ? "\\" . $namespace : "");
     }
     
     /**
@@ -107,19 +113,23 @@ class MakePageCommand extends BaseCommand
         $slug = preg_replace('/\/-/', '/', strtolower(preg_replace('/(?<!^)(?=[A-Z])/', '-', $component))); // Change slashes to hyphens
         
         // Class path formatted to match nested directories
-        $classPath = "App/Livewire/Page/" . str_replace('/', '/', $component);
+        $classPath = config('koverae-builder.page_maker.default_path') . str_replace('/', '/', $component);
 
         // View path in the correct nested format
-        $viewPath = "resources/views/livewire/page/" . $slug . ".blade.php";
+        $viewPath = config('koverae-builder.page_maker.default_view_path') . $slug . ".blade.php";
 
         $tag_slug = preg_replace('/\.-/', '.',  Str::kebab(str_replace('/', '.', $component)));
         // Tag format for Livewire component
-        $tag = "<livewire:page.{$tag_slug} />";
+        $tag = "<". config('koverae-builder.page_maker.default_tag_path') . $tag_slug ." />";
 
         // Display the results in the console
         $this->line("<options=bold,reverse;fg=green> COMPONENT CREATED </> 🤙🏿 \n");
         $this->line("<options=bold;fg=green>CLASS:</> {$classPath}");
-        $this->line("<options=bold;fg=green>VIEW:</> {$viewPath}");
+
+        if (!$this->option('inline')) {
+            $this->line("<options=bold;fg=green>VIEW:</> {$viewPath}");
+        }
+
         $this->line("<options=bold;fg=green>TAG:</> {$tag}");
     }
 

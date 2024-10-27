@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Livewire\Table;
+namespace {{namespace}};
 
 use Koverae\KoveraeBuilder\Cart\SimpleCart;
 use Koverae\KoveraeBuilder\Cart\Column;
 
-class {{componentClass}} extends SimpleCart
+class {{class}} extends SimpleCart
 {
     
     public function columns() : array

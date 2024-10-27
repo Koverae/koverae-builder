@@ -96,19 +96,20 @@ class MakeControlPanelCommand extends BaseCommand
     /**
      * Display the class, view, and tag.
      *
-     * @param string $className
+     * @param string $component
      */
-    protected function displayComponentInfo($className)
+    protected function displayComponentInfo(string $component)
     {
-        $slug = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $className));
+        // Class path formatted to match nested directories
+        $classPath = "App/Livewire/Navbar/ControlPanel/" . str_replace('/', '/', $component);
 
-        $classPath = "App/Livewire/Navbar/ControlPanel/{$className}";
-        // $viewPath = "resources/views/livewire/form/{$slug}.blade.php";
+        $slug = preg_replace('/\.-/', '.',  Str::kebab(str_replace('/', '.', $component)));
+        // Tag format for Livewire component
         $tag = "<livewire:navbar.control-panel.{$slug} />";
 
-        $this->line("<options=bold,reverse;fg=green> COMPONENT CREATED </> 🤙🏿\n");
+        // Display the results in the console
+        $this->line("<options=bold,reverse;fg=green> COMPONENT CREATED </> 🤙🏿 \n");
         $this->line("<options=bold;fg=green>CLASS:</> {$classPath}");
-        // $this->line("VIEW: {$viewPath}");
         $this->line("<options=bold;fg=green>TAG:</> {$tag}");
     }
 
