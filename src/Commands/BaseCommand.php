@@ -14,6 +14,7 @@ abstract class BaseCommand extends Command
     protected $signature = '';
     protected $description = '';
     protected $files;
+    protected array $validTypes = ['table', 'form', 'cart', 'panel', 'page'];
 
     public function __construct(Filesystem $files)
     {

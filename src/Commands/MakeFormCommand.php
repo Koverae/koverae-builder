@@ -32,21 +32,6 @@ class MakeFormCommand extends BaseCommand
 
         $module = $this->argument('module') ?? null;
 
-        if(!empty($module)){
-            
-            if (! $this->parser()) {
-                return false;
-            }
-
-            if (! $this->checkClassNameValid()) {
-                return false;
-            }
-
-            if (! $this->checkReservedClassName()) {
-                return false;
-            }
-        }
-
         $path = $this->getPath($component);
 
         if ($this->files->exists($path)) {

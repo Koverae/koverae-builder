@@ -3,5 +3,9 @@
 @section('page_title', __('New Page') )
 
 @section('content')
-    <!-- Koverae Page Content -->
+
+<div> 
+    <!-- Koverae Page Content --> 
+</div>
+
 @endsection

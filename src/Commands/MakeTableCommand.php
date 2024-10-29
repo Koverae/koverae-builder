@@ -12,7 +12,7 @@ class MakeTableCommand extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'koverae:make-table {component}';
+    protected $signature = 'koverae:make-table {component} {module?}';
 
     /**
      * The console command description.
@@ -29,6 +29,9 @@ class MakeTableCommand extends BaseCommand
     public function handle(): int
     {
         $component = Str::studly($this->argument('component'));
+
+        $module = $this->argument('module') ?? null;
+
         $path = $this->getPath($component);
 
         if ($this->files->exists($path)) {
@@ -53,8 +56,9 @@ class MakeTableCommand extends BaseCommand
      */
     protected function getPath(string $component): string
     {
+        $basePath = config('koverae-builder.table_maker.default_path');
         $componentPath = str_replace('/', DIRECTORY_SEPARATOR, $component);
-        return app_path("Livewire/Table/{$componentPath}.php");
+        return app_path($basePath . $componentPath . '.php');
     }
 
     /**
@@ -77,11 +81,12 @@ class MakeTableCommand extends BaseCommand
 
     protected function getNamespace(string $component): string
     {
+        $baseNamespace = config('koverae-builder.table_maker.namespace');
         $componentParts = explode('/', $component);
         array_pop($componentParts); // Remove the class name part
         $namespace = implode('\\', $componentParts);
     
-        return "App\\Livewire\\Table" . ($namespace ? "\\" . $namespace : "");
+        return $baseNamespace . ($namespace ? "\\" . $namespace : "");
     }
 
     /**
@@ -102,11 +107,11 @@ class MakeTableCommand extends BaseCommand
     protected function displayComponentInfo(string $component)
     {
         // Class path formatted to match nested directories
-        $classPath = "App/Livewire/Table/" . str_replace('/', '/', $component);
+        $classPath = config('koverae-builder.table_maker.default_path') . str_replace('/', '/', $component);
 
         $slug = preg_replace('/\.-/', '.',  Str::kebab(str_replace('/', '.', $component)));
         // Tag format for Livewire component
-        $tag = "<livewire:table.{$slug} />";
+        $tag = "<". config('koverae-builder.table_maker.default_tag_path') . $slug ." />";
 
         // Display the results in the console
         $this->line("<options=bold,reverse;fg=green> COMPONENT CREATED </> 🤙🏿 \n");
