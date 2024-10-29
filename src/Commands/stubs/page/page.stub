@@ -9,6 +9,6 @@ class {{class}} extends SimplePage
     public function render()
     {
         return view('{{viewName}}')
-            ->extends('layouts.main');
+            ->extends(config('koverae-builder.default_layout'));
     }
 }

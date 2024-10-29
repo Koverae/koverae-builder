@@ -6,11 +6,23 @@ use Illuminate\Support\Str;
 
 class MakePageCommand extends BaseCommand
 {
-    protected $signature = 'koverae:make-page {component} {--inline}';
+    protected $signature = 'koverae:make-page {component} {module} {--inline}';
     protected $description = 'Create a new page for Koverae Builder.';
 
     public function handle(): int
     {
+        if (! $this->parser()) {
+            return false;
+        }
+
+        if (! $this->checkClassNameValid()) {
+            return false;
+        }
+
+        if (! $this->checkReservedClassName()) {
+            return false;
+        }
+
         // Extract component path and class
         $component = Str::studly($this->argument('component'));
         $path = $this->getPath($component);
@@ -58,7 +70,7 @@ class MakePageCommand extends BaseCommand
     {
         $namespace = $this->getNamespace($component);
         $class = Str::afterLast($component, '/');
-        $viewName = 'livewire.page.' . preg_replace('/\.-/', '.',  Str::kebab(str_replace('/', '.', $component))); // Ensure correct view name for stubs
+        $viewName = config('koverae-builder.page_maker.default_tag_path') . preg_replace('/\.-/', '.',  Str::kebab(str_replace('/', '.', $component))); // Ensure correct view name for stubs
 
         return str_replace(
             ['{{namespace}}', '{{class}}', '{{viewName}}'],

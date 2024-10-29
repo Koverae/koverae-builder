@@ -184,4 +184,6 @@ trait CommandHelper
     {
         return (new \Livewire\Features\SupportConsoleCommands\Commands\MakeCommand())->isReservedClassName($name);
     }
+
 }
+ 

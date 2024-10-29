@@ -52,8 +52,9 @@ class MakeFormCommand extends BaseCommand
      */
     protected function getPath(string $component): string
     {
+        $basePath = config('koverae-builder.form_maker.default_path');
         $componentPath = str_replace('/', DIRECTORY_SEPARATOR, $component);
-        return app_path("Livewire/Form/{$componentPath}.php");
+        return app_path($basePath . $componentPath . '.php');
     }
 
     /**
@@ -76,11 +77,12 @@ class MakeFormCommand extends BaseCommand
 
     protected function getNamespace(string $component): string
     {
+        $baseNamespace = config('koverae-builder.form_maker.namespace');
         $componentParts = explode('/', $component);
         array_pop($componentParts); // Remove the class name part
         $namespace = implode('\\', $componentParts);
     
-        return "App\\Livewire\\Form" . ($namespace ? "\\" . $namespace : "");
+        return $baseNamespace . ($namespace ? "\\" . $namespace : "");
     }
 
     /**
@@ -101,11 +103,11 @@ class MakeFormCommand extends BaseCommand
     protected function displayComponentInfo(string $component)
     {
         // Class path formatted to match nested directories
-        $classPath = "App/Livewire/Form/" . str_replace('/', '/', $component);
+        $classPath = config('koverae-builder.form_maker.default_path') . str_replace('/', '/', $component);
 
         $slug = preg_replace('/\.-/', '.',  Str::kebab(str_replace('/', '.', $component)));
         // Tag format for Livewire component
-        $tag = "<livewire:form.{$slug} />";
+        $tag = "<". config('koverae-builder.form_maker.default_tag_path') . $slug ." />";
 
         // Display the results in the console
         $this->line("<options=bold,reverse;fg=green> COMPONENT CREATED </> 🤙🏿 \n");
