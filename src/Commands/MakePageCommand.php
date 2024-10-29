@@ -11,22 +11,26 @@ class MakePageCommand extends BaseCommand
 
     public function handle(): int
     {
-        if (! $this->parser()) {
-            return false;
-        }
-
-        if (! $this->checkClassNameValid()) {
-            return false;
-        }
-
-        if (! $this->checkReservedClassName()) {
-            return false;
-        }
-
+        
         // Extract component path and class
         $component = Str::studly($this->argument('component'));
 
         $module = $this->argument('module') ?? null;
+        
+        if(!empty($module)){
+            
+            if (! $this->parser()) {
+                return false;
+            }
+
+            if (! $this->checkClassNameValid()) {
+                return false;
+            }
+
+            if (! $this->checkReservedClassName()) {
+                return false;
+            }
+        }
 
         $path = $this->getPath($component);
 
