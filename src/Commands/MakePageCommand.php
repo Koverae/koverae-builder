@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 class MakePageCommand extends BaseCommand
 {
-    protected $signature = 'koverae:make-page {component} {module?} {--inline} {--custom}';
+    protected $signature = 'koverae:make-page {component} {module?} {--inline}';
     protected $description = 'Create a new page for Koverae Builder.';
 
     public function handle(): int
@@ -16,7 +16,7 @@ class MakePageCommand extends BaseCommand
         $component = Str::studly($this->argument('component'));
 
         $module = $this->argument('module') ?? null;
-        
+
         if(!empty($module)){
             
             if (! $this->parser()) {
@@ -30,31 +30,58 @@ class MakePageCommand extends BaseCommand
             if (! $this->checkReservedClassName()) {
                 return false;
             }
-        }
-
-        $path = $this->getPath($component);
-
-        $viewPath = $this->getViewPath($component);
-
-        // Generate directory and class if they do not exist
-        if ($this->files->exists($path)) {
-            $this->error("Component [{$component}] already exists!");
-            return 0;
-        }
-
-        // Create the class file and view file
-        $this->makeDirectory($path);
-        $this->files->put($path, $this->getStubContent($component));
+            // Module 
         
-        if(!$this->option('inline')){
-            $this->makeDirectory($viewPath);
-            $this->files->put($viewPath, $this->getViewContent($component));
+            // Get the type of component
+            $type = $this->option('type');
+            
+            if($type == null){
+                $this->error('<options=bold,reverse;fg=red> Missing option --type="type-needed" is required </> 😳');
+                return false;
+            }
+
+            // Ensure a valid component type is passed (optional validation)['table', 'form', 'navbar', 'cart', 'modal', 'map']
+            $validTypes = ['table', 'form', 'cart', 'panel', 'page'];
+            if ($type && !in_array($type, $validTypes)) {
+                $this->error("Invalid component type '{$type}'. Valid types are: " . implode(', ', $validTypes));
+                return false;
+            }
+
+            $class = $this->createClass();
+
+            if ($class) {
+                $this->line("<options=bold,reverse;fg=green> COMPONENT CREATED </> 🤙🏿\n");
+
+                $class && $this->line("<options=bold;fg=green>CLASS:</> {$this->getClassSourcePath()}");
+
+                $class && $this->line("<options=bold;fg=green>TAG:</> {$class->tag}");
+            }
         }
+        if(empty($module)){
 
-
-        // Display the class, view, and tag
-        $this->displayComponentInfo($component);
-
+            $path = $this->getPath($component);
+    
+            $viewPath = $this->getViewPath($component);
+    
+            // Generate directory and class if they do not exist
+            if ($this->files->exists($path)) {
+                $this->error("Component [{$component}] already exists!");
+                return 0;
+            }
+    
+            // Create the class file and view file
+            $this->makeDirectory($path);
+            $this->files->put($path, $this->getStubContent($component));
+            
+            if(!$this->option('inline')){
+                $this->makeDirectory($viewPath);
+                $this->files->put($viewPath, $this->getViewContent($component));
+            }
+    
+            // Display the class, view, and tag
+            $this->displayComponentInfo($component);
+    
+        }
         return 0;
     }
 
