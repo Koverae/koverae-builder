@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 class MakePageCommand extends BaseCommand
 {
-    protected $signature = 'koverae:make-page {component} {module?} {--inline}';
+    protected $signature = 'koverae:make-page {component} {module?} {--inline} {--custom}';
     protected $description = 'Create a new page for Koverae Builder.';
 
     public function handle(): int
