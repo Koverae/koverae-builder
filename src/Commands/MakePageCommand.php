@@ -11,9 +11,9 @@ class MakePageCommand extends BaseCommand
 
     public function handle(): int
     {
-        // if (! $this->parser()) {
-        //     return false;
-        // }
+        if (! $this->parser()) {
+            return false;
+        }
 
         if (! $this->checkClassNameValid()) {
             return false;
