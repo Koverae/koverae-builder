@@ -21,7 +21,7 @@ trait ComponentParser{
     {
         // Check if Livewire is installed
         $checkDependencies = Decomposer::checkDependencies(
-            $this->isCustomModule() ? ['livewire/livewire'] : null
+           ['livewire/livewire']
         );
 
         if ($checkDependencies->type == 'error') {
@@ -214,7 +214,7 @@ trait ComponentParser{
 
     protected function getComponentQuote()
     {
-        return "The <code>{$this->getClassName()}</code> livewire component is loaded from the ".($this->isCustomModule() ? 'custom ' : '')."<code>{$this->getModuleName()}</code> module.";
+        return "The <code>{$this->getClassName()}</code> livewire component is loaded from the ".('')."<code>{$this->getModuleName()}</code> module.";
     }
 
     protected function getBasePath($path = null)
