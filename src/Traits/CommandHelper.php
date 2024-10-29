@@ -14,7 +14,7 @@ trait CommandHelper
 
     protected function isForce()
     {
-        return $this->option('force') === true;
+        return $this->option('force') === true; 
     }
 
     protected function isInline()
