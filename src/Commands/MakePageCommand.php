@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 class MakePageCommand extends BaseCommand
 {
-    protected $signature = 'koverae:make-page {component} {module} {--inline}';
+    protected $signature = 'koverae:make-page {component} {module?} {--inline}';
     protected $description = 'Create a new page for Koverae Builder.';
 
     public function handle(): int
@@ -25,6 +25,9 @@ class MakePageCommand extends BaseCommand
 
         // Extract component path and class
         $component = Str::studly($this->argument('component'));
+
+        $module = $this->argument('module') ?? null;
+
         $path = $this->getPath($component);
 
         $viewPath = $this->getViewPath($component);
