@@ -36,7 +36,7 @@ class MakePageCommand extends BaseCommand
             $type = $this->option('type');
             
             if($type == null){
-                $this->error('<options=bold,reverse;fg=red> Missing option --type="type-needed" is required </> 😳');
+                $this->error('<options=bold,reverse;fg=red> Missing option --type="type-needed" is currently required </> 😳');
                 return false;
             }
 
